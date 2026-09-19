@@ -15,8 +15,8 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { COLOR_PALETTE, SUBSTRATES } from '../data/labData';
-import { ColorSwatch, SubstrateId } from '../types';
-import { SubstrateSegmentedControl, ThermalBadge, IsoCategoryBadge } from './Badges';
+import { ColorSwatch } from '../types';
+import { ThermalBadge, IsoCategoryBadge } from './Badges';
 import { LensApertureView } from './LabIllustrations';
 
 interface SimulatorScreenProps {
@@ -26,7 +26,6 @@ interface SimulatorScreenProps {
 export const SimulatorScreen: React.FC<SimulatorScreenProps> = ({ initialSwatch }) => {
   const defaultSwatch = initialSwatch || COLOR_PALETTE[1]; // Warm Amber Gradient
 
-  const [selectedSubstrateId, setSelectedSubstrateId] = useState<SubstrateId>('cr39');
   const [selectedSwatch, setSelectedSwatch] = useState<ColorSwatch>(defaultSwatch);
   const [isGradient, setIsGradient] = useState<boolean>(defaultSwatch.isGradient);
   const [bathTemp, setBathTemp] = useState<number>(92);
@@ -38,7 +37,7 @@ export const SimulatorScreen: React.FC<SimulatorScreenProps> = ({ initialSwatch 
   const [customHex, setCustomHex] = useState<string>(defaultSwatch.hexStart);
   const [customEndHex, setCustomEndHex] = useState<string>(defaultSwatch.hexEnd);
 
-  const currentSubstrate = SUBSTRATES.find((s) => s.id === selectedSubstrateId) || SUBSTRATES[0];
+  const currentSubstrate = SUBSTRATES[0]; // Сайт работает только с CR-39
 
   // Mathematical Optical physics model of dye diffusion
   // CR-39 absorbs disperse dyes by Fickian diffusion: Depth ~ k * sqrt(t)
@@ -125,21 +124,6 @@ export const SimulatorScreen: React.FC<SimulatorScreenProps> = ({ initialSwatch 
             Математическое моделирование глубины диффузии красителя в зависимости от температуры
             ванны, времени экспозиции, типа субстрата и концентрации раствора.
           </p>
-        </div>
-
-        {/* Substrate Segmented Switcher */}
-        <div className="flex flex-col items-start sm:items-end gap-1.5">
-          <span className="text-xs font-bold text-slate-500 font-mono uppercase">
-            Выбор полимерной матрицы:
-          </span>
-          <SubstrateSegmentedControl
-            selected={selectedSubstrateId}
-            onChange={(id) => {
-              setSelectedSubstrateId(id);
-              const sub = SUBSTRATES.find((s) => s.id === id);
-              if (sub) setBathTemp(sub.recommendedTemp);
-            }}
-          />
         </div>
       </div>
 
