@@ -74,4 +74,4 @@ export interface SimulationParams {
   uvProtectionAdded: boolean;
 }
 
-export type ActiveScreen = 'process' | 'palette' | 'simulator' | 'troubleshooting';
+export type ActiveScreen = 'palette' | 'simulator';
