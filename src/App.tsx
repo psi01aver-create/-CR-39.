@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ActiveScreen, ColorSwatch } from './types';
 import { COLOR_PALETTE } from './data/labData';
 import { Header } from './components/Header';
-import { ProcessScreen } from './components/ProcessScreen';
 import { PaletteScreen } from './components/PaletteScreen';
 import { SimulatorScreen } from './components/SimulatorScreen';
-import { TroubleshootingScreen } from './components/TroubleshootingScreen';
 import { MobileDeckFrame } from './components/MobileDeckFrame';
-import { Layers, Palette, Sliders, AlertTriangle, ShieldCheck, Microscope } from 'lucide-react';
+import { ShieldCheck, Microscope } from 'lucide-react';
 
 export default function App() {
-  const [activeScreen, setActiveScreen] = useState<ActiveScreen>('process');
+  const [activeScreen, setActiveScreen] = useState<ActiveScreen>('palette');
   const [isMobileDeckMode, setIsMobileDeckMode] = useState<boolean>(false);
   const [simSwatch, setSimSwatch] = useState<ColorSwatch>(COLOR_PALETTE[1]);
   const [liveTemp, setLiveTemp] = useState<number>(92.2);
@@ -29,10 +27,8 @@ export default function App() {
       if (['input', 'textarea', 'select'].includes((e.target as HTMLElement)?.tagName?.toLowerCase())) {
         return;
       }
-      if (e.key === '1') setActiveScreen('process');
-      if (e.key === '2') setActiveScreen('palette');
-      if (e.key === '3') setActiveScreen('simulator');
-      if (e.key === '4') setActiveScreen('troubleshooting');
+      if (e.key === '1') setActiveScreen('palette');
+      if (e.key === '2') setActiveScreen('simulator');
       if (e.key === 'm' || e.key === 'M') setIsMobileDeckMode((prev) => !prev);
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -46,18 +42,16 @@ export default function App() {
 
   const renderActiveScreenContent = () => {
     switch (activeScreen) {
-      case 'process':
-        return <ProcessScreen />;
       case 'palette':
         return (
           <PaletteScreen onSelectSwatchForSimulation={handleSelectSwatchForSimulation} />
         );
       case 'simulator':
         return <SimulatorScreen initialSwatch={simSwatch} key={simSwatch.id} />;
-      case 'troubleshooting':
-        return <TroubleshootingScreen />;
       default:
-        return <ProcessScreen />;
+        return (
+          <PaletteScreen onSelectSwatchForSimulation={handleSelectSwatchForSimulation} />
+        );
     }
   };
 
@@ -114,7 +108,7 @@ export default function App() {
               TCN-CRX 92°C ±0.5°C PID
             </span>
             <span className="text-slate-400">
-              Горячие клавиши: 1-4 экраны, M — мобильный дек
+              Горячие клавиши: 1-2 экраны, M — мобильный дек
             </span>
           </div>
         </div>
