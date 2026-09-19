@@ -11,7 +11,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { COLOR_PALETTE } from '../data/labData';
-import { ColorSwatch, SubstrateId } from '../types';
+import { ColorSwatch } from '../types';
 import { IsoCategoryBadge } from './Badges';
 import { LensApertureView } from './LabIllustrations';
 
@@ -22,7 +22,6 @@ interface PaletteScreenProps {
 export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForSimulation }) => {
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeSubstrateFilter, setActiveSubstrateFilter] = useState<SubstrateId | 'all'>('all');
   const [selectedDensityMode, setSelectedDensityMode] = useState<'sample' | '15' | '50' | '85'>('sample');
 
   const filteredSwatches = COLOR_PALETTE.filter((swatch) => {
@@ -37,11 +36,7 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
       (filterCategory === 'solid' && !swatch.isGradient) ||
       swatch.categoryName.includes(filterCategory);
 
-    const matchesSubstrate =
-      activeSubstrateFilter === 'all' ||
-      swatch.recommendedSubstrates.includes(activeSubstrateFilter);
-
-    return matchesSearch && matchesCategory && matchesSubstrate;
+    return matchesSearch && matchesCategory;
   });
 
   const getEffectiveLtf = (swatch: ColorSwatch) => {
@@ -115,22 +110,6 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500"
           />
-        </div>
-
-        {/* Substrate Quick Filter */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500 font-medium hidden sm:inline">Субстрат:</span>
-          <select
-            id="palette-substrate-select"
-            value={activeSubstrateFilter}
-            onChange={(e) => setActiveSubstrateFilter(e.target.value as any)}
-            className="px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500/20"
-          >
-            <option value="all">Все материалы</option>
-            <option value="cr39">CR-39 (n=1.498)</option>
-            <option value="polycarbonate">Polycarbonate (n=1.586)</option>
-            <option value="hi_index">Hi-Index 1.60/1.67</option>
-          </select>
         </div>
 
         {/* Category Buttons */}
@@ -239,21 +218,6 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
                   <div className="bg-white p-2 rounded-lg border border-slate-200">
                     <span className="text-[10px] text-slate-400 block">УФ БАРЬЕР:</span>
                     <span className="font-bold text-sky-700">{swatch.uvCutoffNm} нм</span>
-                  </div>
-                </div>
-
-                {/* Substrate Tags */}
-                <div className="flex items-center gap-1 text-[10px] text-slate-500">
-                  <span className="font-semibold">Совместимо:</span>
-                  <div className="flex gap-1 flex-wrap">
-                    {swatch.recommendedSubstrates.map((s) => (
-                      <span
-                        key={s}
-                        className="px-1.5 py-0.5 rounded bg-slate-200/70 text-slate-700 font-mono"
-                      >
-                        {s === 'cr39' ? 'CR-39' : s === 'polycarbonate' ? 'Poly' : 'Hi-Ind'}
-                      </span>
-                    ))}
                   </div>
                 </div>
 
