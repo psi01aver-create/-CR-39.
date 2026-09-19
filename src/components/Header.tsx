@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  Layers,
   Palette,
   Sliders,
-  AlertTriangle,
   Flame,
   Activity,
   Smartphone,
@@ -28,10 +26,8 @@ export const Header: React.FC<HeaderProps> = ({
   liveTemp,
 }) => {
   const navItems: { id: ActiveScreen; label: string; icon: React.ReactNode; count?: string }[] = [
-    { id: 'process', label: 'Техпроцесс', icon: <Layers className="w-4 h-4" />, count: '05' },
     { id: 'palette', label: 'Оптическая палитра', icon: <Palette className="w-4 h-4" />, count: '08' },
     { id: 'simulator', label: 'Симулятор линзы', icon: <Sliders className="w-4 h-4" /> },
-    { id: 'troubleshooting', label: 'Дефектоскопия & FAQ', icon: <AlertTriangle className="w-4 h-4" />, count: '05' },
   ];
 
   return (
