@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flame, Beaker, ShieldCheck, Thermometer } from 'lucide-react';
-import { SubstrateId } from '../types';
 
 interface ThermalBadgeProps {
   temperature: string;
@@ -99,55 +98,6 @@ export const IsoCategoryBadge: React.FC<IsoCategoryBadgeProps> = ({ category, lt
       {ltfPct !== undefined && (
         <span className="font-mono font-bold underline decoration-amber-500/50">{ltfPct}% LTF</span>
       )}
-    </div>
-  );
-};
-
-interface SubstrateSegmentedControlProps {
-  selected: SubstrateId;
-  onChange: (id: SubstrateId) => void;
-}
-
-export const SubstrateSegmentedControl: React.FC<SubstrateSegmentedControlProps> = ({
-  selected,
-  onChange,
-}) => {
-  const options: { id: SubstrateId; label: string; index: string }[] = [
-    { id: 'cr39', label: 'CR-39 Standard', index: 'n=1.499' },
-    { id: 'polycarbonate', label: 'Polycarbonate', index: 'n=1.586' },
-    { id: 'hi_index', label: 'Hi-Index 1.60/1.67', index: 'n=1.60+' },
-  ];
-
-  return (
-    <div
-      id="substrate-segmented-control"
-      className="inline-flex p-1 rounded-full bg-slate-900/90 p-1 border border-slate-700/80 shadow-inner max-w-full overflow-x-auto"
-    >
-      {options.map((option) => {
-        const isSelected = selected === option.id;
-        return (
-          <button
-            key={option.id}
-            id={`btn-substrate-${option.id}`}
-            type="button"
-            onClick={() => onChange(option.id)}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap cursor-pointer ${
-              isSelected
-                ? 'bg-amber-600 text-white font-semibold shadow-md ring-1 ring-amber-400/40'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-            }`}
-          >
-            <span>{option.label}</span>
-            <span
-              className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                isSelected ? 'bg-amber-700/80 text-amber-100' : 'bg-slate-800 text-slate-400'
-              }`}
-            >
-              {option.index}
-            </span>
-          </button>
-        );
-      })}
     </div>
   );
 };
