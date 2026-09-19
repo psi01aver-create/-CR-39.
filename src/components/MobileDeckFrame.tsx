@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  Layers,
   Palette,
   Sliders,
-  AlertTriangle,
   ChevronLeft,
   ChevronRight,
   Wifi,
@@ -26,10 +24,8 @@ export const MobileDeckFrame: React.FC<MobileDeckFrameProps> = ({
   children,
 }) => {
   const screens: { id: ActiveScreen; label: string; icon: React.ReactNode }[] = [
-    { id: 'process', label: 'Процесс', icon: <Layers className="w-4 h-4" /> },
     { id: 'palette', label: 'Палитра', icon: <Palette className="w-4 h-4" /> },
     { id: 'simulator', label: 'Симулятор', icon: <Sliders className="w-4 h-4" /> },
-    { id: 'troubleshooting', label: 'Дефекты', icon: <AlertTriangle className="w-4 h-4" /> },
   ];
 
   const currentIdx = screens.findIndex((s) => s.id === activeScreen);
