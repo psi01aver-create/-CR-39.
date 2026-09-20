@@ -113,9 +113,6 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-['Plus_Jakarta_Sans',sans-serif] text-lg font-extrabold text-[#0F172A] tracking-tight">
-                  Optical Amber Lab
-                </span>
                 <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-100 text-amber-900 border border-amber-300">
                   CR-39 OPTICS
                 </span>
