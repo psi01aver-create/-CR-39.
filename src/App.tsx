@@ -107,7 +107,7 @@ export default function App() {
               <Microscope className="w-3.5 h-3.5 text-amber-600" />
               TCN-CRX 92°C ±0.5°C PID
             </span>
-            <span className="text-slate-400">
+            <span className="hidden sm:inline text-slate-400">
               Горячие клавиши: 1-2 экраны, M — мобильный дек
             </span>
           </div>
