@@ -50,7 +50,7 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
     <div id="palette-catalog-screen" className="space-y-6">
       {/* Top Title Card */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
+        <div className="min-w-0 lg:flex-1">
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">
               OPTICAL COLOR MATRIX 2026
@@ -69,11 +69,11 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
         </div>
 
         {/* Global Density Preview Selector (15%, 50%, 85% LTF) */}
-        <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-800 shrink-0">
+        <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-800 w-full md:w-auto min-w-0 lg:shrink-0">
           <span className="text-[11px] font-mono text-slate-400 block mb-1.5 uppercase font-medium">
             Режим симуляции плотности (LTF):
           </span>
-          <div className="inline-flex p-1 rounded-lg bg-slate-800 border border-slate-700">
+          <div className="flex flex-wrap gap-1 p-1 rounded-lg bg-slate-800 border border-slate-700">
             {[
               { id: 'sample', label: 'По умолчанию' },
               { id: '15', label: '15% LTF (Темный)' },
@@ -84,7 +84,7 @@ export const PaletteScreen: React.FC<PaletteScreenProps> = ({ onSelectSwatchForS
                 key={mode.id}
                 type="button"
                 onClick={() => setSelectedDensityMode(mode.id as any)}
-                className={`px-2.5 py-1 rounded text-xs font-semibold cursor-pointer transition-colors ${
+                className={`px-2.5 py-1 rounded text-xs font-semibold cursor-pointer transition-colors whitespace-nowrap ${
                   selectedDensityMode === mode.id
                     ? 'bg-amber-600 text-white shadow-sm'
                     : 'text-slate-400 hover:text-white'
