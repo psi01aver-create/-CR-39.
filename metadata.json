@@ -1,6 +1,0 @@
-{
-  "name": "Optical Amber Lab",
-  "description": "Лабораторная система тонирования очковых линз CR-39: технологический процесс, ванны термодиффузии, оптическая палитра и диагностика дефектов.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
