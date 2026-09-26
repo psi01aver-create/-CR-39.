@@ -97,13 +97,12 @@ section h2{margin:0 0 10px;font-size:13px;font-weight:600;text-transform:upperca
   <div class="tray-in">
     <div class="tray-top">
       <span class="tray-title" id="trayTitle">Ничего не выбрано</span>
-      <button class="link" id="clear" hidden>Очистить</button>
-    </div>
+          </div>
     <p class="hint" id="hint">Выберите краситель, чтобы скопировать и отправить.</p>
     <pre class="msg" id="msg" hidden></pre>
     <div class="actions" id="actions" hidden>
-      <button class="btn" id="copy">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+      <button class="btn" id="reset">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Очистить всё</button>
       <a class="btn tg" id="tg" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.3 1.8 11.8c-1-.3-1-1 .2-1.5L20.5 3.2c.9-.3 1.6.2 1.4 1.1z"/></svg>Telegram</a>
       <a class="btn wa" id="wa" target="_blank" rel="noopener">
@@ -195,7 +194,7 @@ function text(){return selected.map(c=>line(byCode[c])).join("\n")}
 function renderTray(){
   const n=selected.length,has=n>0;
   $("trayTitle").textContent=has?(n===1?"Выбран 1 краситель":`Выбрано: ${n}`):"Ничего не выбрано";
-  $("clear").hidden=!has;$("msg").hidden=!has;$("actions").hidden=!has;$("hint").hidden=has;
+  $("msg").hidden=!has;$("actions").hidden=!has;$("hint").hidden=has;
   if(!has)return;
   const t=text();$("msg").textContent=t;
   $("tg").href="https://t.me/share/url?url="+encodeURIComponent(" ")+"&text="+encodeURIComponent(t);
@@ -215,8 +214,7 @@ $("list").addEventListener("click",e=>{
   selected.push(code);renderList();renderTray();
   copy(selected.length===1?line(byCode[code]):text(),selected.length===1?"Скопировано: "+code+" "+byCode[code].ru:`Скопирован список (${selected.length})`);
 });
-$("copy").addEventListener("click",()=>copy(text(),"Скопировано"));
-$("clear").addEventListener("click",()=>{selected=[];renderList();renderTray()});
+$("reset").addEventListener("click",()=>{selected=[];renderList();renderTray();toast("Список очищен")});
 
 renderChips();renderList();renderTray();
 </script>
